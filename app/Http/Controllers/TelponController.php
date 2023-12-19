@@ -36,14 +36,12 @@ class TelponController extends Controller
 
         $telpon->update($validatedData);
 
-        // return redirect()->back()->with('success', 'telpon updated successfully.');
         return redirect()->route('telpon.index');
     }
 
     public function destroy(Telpon $telpon) {
         $telpon->delete();
 
-        // return redirect()->back()->with('success', 'telpon deleted successfully.');
         return redirect()->route('telpon.index');
     }
 }

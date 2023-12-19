@@ -12,14 +12,14 @@ const initialValue = {
     name: "",
     region: "",
     telpon: "",
-    description: "",
+    description: "active",
 };
 
 let formData = reactive({
     name: "",
     region: "",
     telpon: "",
-    description: "",
+    description: "active",
 });
 
 const openEditModal = (item) => {
@@ -38,7 +38,7 @@ const openModal = (type) => {
 };
 
 const closeModal = () => {
-    formData = initialValue;
+    formData = { ...initialValue };
     modalType.value = "";
     modalVisible.value = false;
 };
@@ -49,7 +49,6 @@ const createTelpon = () => {
 };
 
 const updateTelpon = (id) => {
-    console.log(formData.deadline);
     formData.id = id;
 
     console.log(`Update item with id ${id}`);
@@ -70,21 +69,21 @@ const deleteTelpon = (id) => {
 
 <template>
     <div class="mx-10 mt-10">
-        <h1 class="text-6xl font-extrabold font-serif mb-8">Telpon List</h1>
+        <h1 class="text-6xl font-extrabold font-serif mb-8">Telephone Book</h1>
 
         <div class="pb-4">
             <button
                 class="bg-blue-500 hover:bg-blue-700 mb-4 text-white font-bold py-2 px-4 rounded"
                 @click="openModal('create')"
             >
-                Create Telpon
+                Create New Contact
             </button>
         </div>
 
         <table class="min-w-full bg-white border border-gray-300">
-            <thead class="bg-blue-500">
+            <thead class="bg-blue-300">
                 <tr>
-                    <th class="py-2 px-4 text-white border-b">Name</th>
+                    <th class="py-2 px-4 text-white border-b">Contact Name</th>
                     <th class="py-2 px-4 text-white border-b">Region</th>
                     <th class="py-2 px-4 text-white border-b">Telpon</th>
                     <th class="py-2 px-4 text-white border-b">Description</th>
@@ -92,7 +91,7 @@ const deleteTelpon = (id) => {
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in data" :key="item.id">
+                <tr v-for="item in data" :key="item.id" class="bg-gray-100">
                     <td class="py-2 px-4 border-b max-w-[150px] text-center">
                         {{ item.name }}
                     </td>
@@ -103,25 +102,25 @@ const deleteTelpon = (id) => {
                         {{ item.telpon }}
                     </td>
                     <td class="py-2 px-4 border-b text-center">
-                        {{ item.description }}
+                        {{ item.description === 'active' ? 'Active' : 'Inactive' }}
                     </td>
                     <td class="py-4 px-4 border-b">
                         <div
-                            class="flex flex-wrap gap-1 items-center justify-center"
+                            class="flex flex-wrap gap-5 items-center justify-center "
                         >
                             <button @click="openEditModal(item)">
                                 <img
-                                    width="28"
-                                    height="28"
-                                    src="https://img.icons8.com/pastel-glyph/64/create-new--v1.png"
+                                    width="30"
+                                    height="30"
+                                    src="https://cdn.icon-icons.com/icons2/3376/PNG/512/circle_edit_icon_212071.png"
                                     alt="create-new--v1"
                                 />
-                            </button>
+                            </button >
                             <button @click="deleteTelpon(item.id)">
                                 <img
                                     width="32"
                                     height="32"
-                                    src="https://img.icons8.com/sf-regular-filled/48/trash.png"
+                                    src="https://png.pngtree.com/png-vector/20220813/ourmid/pngtree-rounded-flat-vector-icon-of-a-red-trash-can-vector-png-image_19495792.png"
                                     alt="trash"
                                 />
                             </button>
@@ -180,18 +179,11 @@ const deleteTelpon = (id) => {
                     </div>
 
                     <div class="m-5">
-                        <label
-                            for="description"
-                            class="block text-sm font-medium text-gray-700"
-                            >Description:</label
-                        >
-                        <input
-                            v-model="formData.description"
-                            type="text"
-                            id="description"
-                            name="description"
-                            class="mt-1 p-2 border rounded-md w-full"
-                        />
+                        <label for="description" class="block text-sm font-medium text-gray-700">Description:</label>
+                        <select v-model="formData.description" id="description" name="description" class="mt-1 p-2 border rounded-md w-full">
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
                     </div>
 
                     <div class="flex justify-end">
@@ -254,18 +246,11 @@ const deleteTelpon = (id) => {
                     </div>
 
                     <div class="m-5">
-                        <label
-                            for="description"
-                            class="block text-sm font-medium text-gray-700"
-                            >Description:</label
-                        >
-                        <input
-                            v-model="formData.description"
-                            type="text"
-                            id="description"
-                            name="description"
-                            class="mt-1 p-2 border rounded-md w-full"
-                        />
+                        <label for="description" class="block text-sm font-medium text-gray-700">Description:</label>
+                        <select v-model="formData.description" id="description" name="description" class="mt-1 p-2 border rounded-md w-full">
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
                     </div>
 
                     <div class="flex justify-end">
@@ -281,4 +266,3 @@ const deleteTelpon = (id) => {
         </Modal>
     </div>
 </template>
-
